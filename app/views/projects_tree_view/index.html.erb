@@ -8,6 +8,12 @@
 
 <h2><%= l(:label_project_plural) %></h2>
 
+<div class="contextual">
+  <%= link_to t('button_expand_all'), 'javascript:void(0)', :id => :rtv_expand_all %>
+  &nbsp;|&nbsp;
+  <%= link_to t('button_collapse_all'), 'javascript:void(0)', :id => :rtv_collapse_all %>
+</div>
+
 <div id="projects-index">
 <%= rtv_render_project_hierarchy(@projects) %>
 </div>
@@ -31,3 +37,7 @@
 <% end %>
 
 <% html_title(l(:label_project_plural)) -%>
+
+<%= javascript_include_tag 'redmine_tree_view', :plugin => 'redmine_tree_view' %>
+<%= stylesheet_link_tag 'redmine_tree_view', :plugin => 'redmine_tree_view' %>
+

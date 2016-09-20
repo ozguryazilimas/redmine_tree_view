@@ -1,0 +1,23 @@
+.rtv_project_toggle {
+  background: url(../images/rtv_minus.png) left top / cover;
+  width: 1em;
+  height: 1em;
+  // display: block;
+  // float: left;
+  display: inline-block;
+  margin: 0 0.5em 0 0;
+  border: 1px solid #E3E3E3;
+}
+
+.rtv_project_no_children {
+  margin-left: 1.7em;
+}
+
+.rtv_project_toggle:hover {
+  border: 1px solid #005782;
+}
+
+.rtv_project_toggle.rtv_closed {
+  background: url(../images/rtv_plus.png) left top / cover;
+}
+
