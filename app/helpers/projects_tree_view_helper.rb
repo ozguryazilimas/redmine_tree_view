@@ -2,6 +2,7 @@ module ProjectsTreeViewHelper
 
   def rtv_render_project_nested_lists(projects, &block)
     s = ''
+    @project_ids ||= []
 
     if projects.any?
       ancestors = []
@@ -10,8 +11,14 @@ module ProjectsTreeViewHelper
       projects.sort_by(&:lft).each do |project|
         # set the project environment to please macros.
         @project = project
-        toggle_class = "rtv_children_of_#{project.parent.id}" if project.parent
-        display_style = 'style="display:none;"' if project.parent
+
+        if project.parent && !ancestors.empty?
+          toggle_class = "rtv_children_of_#{project.parent.id}"
+          display_style = 'style="display:none;"'
+        else
+          toggle_class = ''
+          display_style = ''
+        end
 
         if (ancestors.empty? || project.is_descendant_of?(ancestors.last))
           s << "<ul class='projects #{ ancestors.empty? ? 'root' : nil} #{toggle_class}' #{display_style}>\n"
@@ -28,7 +35,7 @@ module ProjectsTreeViewHelper
         classes = (ancestors.empty? ? 'root' : 'child')
         s << "<li class='#{classes}'><div class='#{classes}'>"
 
-        if project.children.any?
+        if (@project_ids & project.children.pluck(:id)).present?
           s << "<span class='rtv_project_toggle rtv_closed' data-toggle-target='rtv_children_of_#{project.id}'></span>"
         else
           s << "<span class='rtv_project_no_children'></span>"

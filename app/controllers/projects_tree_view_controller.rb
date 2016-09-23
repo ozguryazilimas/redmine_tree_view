@@ -10,6 +10,7 @@ class ProjectsTreeViewController < ApplicationController
         unless params[:closed]
           scope = scope.active
         end
+        @project_ids = scope.pluck(:id)
         @projects = scope.to_a
       }
     end
