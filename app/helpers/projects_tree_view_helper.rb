@@ -12,8 +12,9 @@ module ProjectsTreeViewHelper
         # set the project environment to please macros.
         @project = project
 
-        if project.parent && !ancestors.empty?
-          toggle_class = "rtv_children_of_#{project.parent.id}"
+        # we need to use ancestors as parent can be hidden but we may be under parents parent
+        if project.parent && ancestors.present? && project.is_descendant_of?(ancestors.last)
+          toggle_class = "rtv_children_of_#{ancestors.last.id}"
           display_style = 'style="display:none;"'
         else
           toggle_class = ''
