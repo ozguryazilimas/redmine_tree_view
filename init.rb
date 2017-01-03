@@ -1,3 +1,5 @@
+require 'redmine'
+
 Redmine::Plugin.register :redmine_tree_view do
   name 'Redmine Tree View plugin'
   author 'Onur Kucuk'
